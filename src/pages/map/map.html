@@ -1,0 +1,17 @@
+<ion-content>
+  <div #map id="map"></div>  
+  <ion-grid>
+    <ion-row>
+      <ion-col width-50>
+        <button ion-button full round color="light" (click)="initMap()">
+          <ion-icon name="locate"> Locate</ion-icon>
+        </button>
+      </ion-col>
+      <ion-col width-50>
+        <button ion-button full round color="secondary" [disabled]="mapInitialised == false ? true : null" (click)="showConfirm()">
+          <ion-icon name="home"> Submit</ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
