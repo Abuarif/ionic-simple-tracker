@@ -9,7 +9,7 @@ import { SettingPage } from '../pages/setting/setting';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { ConnectivityService } from '../providers/connectivity-service';
-
+import { User } from '../providers/user';
 
 @NgModule({
   declarations: [
@@ -36,7 +36,8 @@ import { ConnectivityService } from '../providers/connectivity-service';
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler}, 
-    ConnectivityService
+    ConnectivityService,
+    User
     ]
 })
 export class AppModule {}
