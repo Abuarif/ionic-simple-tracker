@@ -1,22 +1,22 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
 
-/*
-  Generated class for the Activity page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-activity',
   templateUrl: 'activity.html'
 })
 export class ActivityPage {
+  process: string;
+  latitude: number;
+  longitude: number;
+  clockTime: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ActivityPage');
+  constructor() {}
+  
+  setActivity(data) {
+    this.process = data.process;
+    this.latitude = data.latitude;
+    this.longitude = data.longitude;
+    this.clockTime = data.clockTime;
   }
-
+  
 }
