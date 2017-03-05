@@ -6,6 +6,7 @@ import { ActivitiesPage } from '../pages/activities/activities';
 import { ActivityPage } from '../pages/activity/activity';
 import { MapPage } from '../pages/map/map';
 import { SettingPage } from '../pages/setting/setting';
+import { RegistrationPage } from '../pages/registration/registration';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { ConnectivityService } from '../providers/connectivity-service';
@@ -18,6 +19,7 @@ import { User } from '../providers/user';
     ActivityPage,
     MapPage,
     SettingPage,
+    RegistrationPage,
     TabsPage
     
   ],
@@ -31,6 +33,7 @@ import { User } from '../providers/user';
     ActivityPage,
     MapPage,
     SettingPage,
+    RegistrationPage,
     TabsPage
     
   ],
