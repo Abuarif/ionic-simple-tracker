@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 import { ConnectivityService } from '../../providers/connectivity-service';
 import { Geolocation } from 'ionic-native';
 import { AlertController } from 'ionic-angular'; 
@@ -24,9 +24,12 @@ export class MapPage {
   constructor(
     public navCtrl: NavController, 
     public connectivityService: ConnectivityService, 
-    public alertCtrl: AlertController) {
+    public alertCtrl: AlertController,
+    public loadingCtrl: LoadingController) {
 
-    this.loadGoogleMaps();
+    // this.loadGoogleMaps();
+    this.loadScript();
+    this.initMap();
 
   }
   
@@ -75,7 +78,24 @@ export class MapPage {
     }
   }
  
+  loadScript() {
+    let script = document.createElement("script");
+    script.id = "googleMaps";
+
+    if(this.apiKey){
+      script.src = 'https://maps.googleapis.com/maps/api/js?key=' + this.apiKey;
+      // script.src = 'https://maps.googleapis.com/maps/api/js?key=' + this.apiKey + '&callback=initMap';
+      console.log("API Key is available!");
+    } else {
+      script.src = 'https://maps.googleapis.com/maps/api/js?callback=initMap';       
+    }
+
+    document.body.appendChild(script);  
+  }
+
   initMap(){
+    this.presentLoading();
+
     Geolocation.getCurrentPosition().then((position) => {
       this.mapInitialised = true;
       
@@ -133,7 +153,7 @@ export class MapPage {
  
           this.enableMap();
         }
-      }, 2000);
+      }, 1000);
  
     };
  
@@ -206,6 +226,14 @@ export class MapPage {
       buttons: ['OK']
     });
     alert.present();
+  }
+
+  presentLoading() {
+    this.loadingCtrl.create({
+      content: 'Loading ...',
+      duration: 5000,
+      dismissOnPageChange: true
+    }).present();
   }
 
 }
