@@ -21,6 +21,9 @@ export class LoginPage {
     private loadingCtrl: LoadingController,
     private userService: User ) {}
  
+  setInput() {
+    this.registerCredentials.email = this.userService.email;
+  }
   public createAccount() {
     this.nav.push(RegistrationPage);
   }
