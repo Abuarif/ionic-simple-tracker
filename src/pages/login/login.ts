@@ -35,7 +35,7 @@ export class LoginPage {
         setTimeout(() => {
         this.loading.dismiss();
         this.userService.isSuccessActivation('ok');
-        this.nav.setRoot(SettingPage)
+        this.nav.popToRoot();
         });
       } else {
         this.showError("Access Denied");
