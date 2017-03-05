@@ -38,7 +38,7 @@ export class RegistrationPage {
         this.createSuccess = true;
           // this.showPopup("Success", "Account created.");
           this.userService.onSave(this.registerCredentials);
-
+          this.nav.popTo(SettingPage);
       } else {
         this.showPopup("Error", "Problem creating account.");
       }
