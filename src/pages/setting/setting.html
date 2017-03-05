@@ -68,7 +68,6 @@
         </ion-item>
 
         <ion-item>
-          <!--<ion-icon name='walk' item-left></ion-icon>-->
           <ion-avatar item-left>
             <ion-icon name="lock" *ngIf="personalData.isActivated" item-right color="secondary"></ion-icon>
             <ion-icon name="unlock" *ngIf="!personalData.isActivated" item-right color="danger"></ion-icon>
@@ -78,9 +77,8 @@
               Account is activated.
             </h2>
             <h2 *ngIf="!personalData.isActivated">
-              Click on <ion-icon name="create" color="primary"></ion-icon> to activate account.
+              Click on <ion-icon name="create" color="primary"></ion-icon> to activate.
             </h2>
-          <!--</ion-icon>-->
         </ion-item>
 
       </ion-list>
