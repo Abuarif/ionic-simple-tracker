@@ -72,34 +72,7 @@ export class SettingPage {
   requestForActivation() {
     this.navCtrl.push(LoginPage);
   }
-
-  presentActionSheet() {
-    let actionSheet = this.actionSheetCtrl.create({
-      title: 'Modify your settings',
-      buttons: [
-        {
-          text: 'Register',
-          role: 'register',
-          handler: () => {
-            this.registerUser();
-          }
-        },{
-          text: 'Activate',
-          handler: () => {
-            this.requestForActivation();
-          }
-        },{
-          text: 'Cancel',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
-        }
-      ]
-    });
-    actionSheet.present();
-  }
-
+  
   public logout() {
     this.auth.logout().subscribe(succ => {
         this.navCtrl.setRoot(TabsPage)

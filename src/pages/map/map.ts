@@ -5,6 +5,7 @@ import { Geolocation } from 'ionic-native';
 import { AlertController } from 'ionic-angular'; 
 
 import { User } from '../../providers/user';
+import { LoginPage } from '../login/login';
  
 declare var google;
  
@@ -244,5 +245,76 @@ export class MapPage {
     } else {
       return false;
     }
+  }
+
+  canCheckIn() {
+    if (this.userService.isActivated && !this.userService.isCheckedIn) {
+      return true;
+    } 
+  }
+
+  submitCheckInData() {
+    let confirm = this.alertCtrl.create({
+      title: 'Use this location?',
+      message: 'Do you agree to use this location for your check in?',
+      buttons: [
+        {
+          text: 'Disagree',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'Agree',
+          handler: () => {
+            console.log('Agree clicked '+ this.latLng);
+            this.userService.isCheckedIn = true;
+            let message = 'Your location is at: ' 
+              + '<br/> Lat: ' + this.lat
+              + '<br/> Long: ' + this.long;
+            this.debug(message);
+          }
+        }
+      ]
+    });
+    confirm.present();
+
+  }
+
+  canCheckOut() {
+    if (this.userService.isActivated && this.userService.isCheckedIn) {
+      return true;
+    }
+  }
+
+  submitCheckOutData() {
+    let confirm = this.alertCtrl.create({
+      title: 'Use this location?',
+      message: 'Do you agree to use this location for your check out?',
+      buttons: [
+        {
+          text: 'Disagree',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'Agree',
+          handler: () => {
+            console.log('Agree clicked '+ this.latLng);
+            this.userService.isCheckedIn = false;
+            let message = 'Your location is at: ' 
+              + '<br/> Lat: ' + this.lat
+              + '<br/> Long: ' + this.long;
+            this.debug(message);
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
+
+  requestForActivation() {
+    this.navCtrl.push(LoginPage);
   }
 }

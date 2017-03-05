@@ -8,16 +8,14 @@
         </button>
       </ion-col>
       <ion-col width-50>
-        <button 
-        ion-button 
-        full 
-        round 
-        color="secondary" 
-        [disabled]="!isAllowed()? true : null" 
-        (click)="showConfirm()">
-          <ion-icon name="home"> 
-            Submit
-          </ion-icon>
+        <button ion-button full round color="primary" *ngIf="!isAllowed()" (click)="requestForActivation()">
+          <ion-icon name="unlock"> Activate</ion-icon> 
+        </button>
+        <button ion-button full round color="secondary" *ngIf="canCheckIn()" (click)="submitCheckInData()">
+          <ion-icon name="clock"> Check In</ion-icon> 
+        </button>
+        <button ion-button full round color="danger" *ngIf="canCheckOut()" (click)="submitCheckOutData()">
+          <ion-icon name="clock"> Check Out</ion-icon>
         </button>
       </ion-col>
     </ion-row>
