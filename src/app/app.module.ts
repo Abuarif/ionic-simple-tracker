@@ -7,10 +7,12 @@ import { ActivityPage } from '../pages/activity/activity';
 import { MapPage } from '../pages/map/map';
 import { SettingPage } from '../pages/setting/setting';
 import { RegistrationPage } from '../pages/registration/registration';
+import { LoginPage } from '../pages/login/login';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { ConnectivityService } from '../providers/connectivity-service';
 import { User } from '../providers/user';
+import { AuthService } from '../providers/auth-service';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,7 @@ import { User } from '../providers/user';
     MapPage,
     SettingPage,
     RegistrationPage,
+    LoginPage,
     TabsPage
     
   ],
@@ -34,13 +37,15 @@ import { User } from '../providers/user';
     MapPage,
     SettingPage,
     RegistrationPage,
+    LoginPage,
     TabsPage
     
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler}, 
     ConnectivityService,
-    User
+    User,
+    AuthService
     ]
 })
 export class AppModule {}

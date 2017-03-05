@@ -1,37 +1,44 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class User {
 
-  personalData: {
-    name: string,
-    staff_number: number,
-    email: string,
-    department: string,
-    base_location: string,
-    activation_key: number,
-    process: number
-  };
+  
+    name: string;
+    staffNumber: number;
+    email: string;
+    department: string;
+    baseLocation: string;
+    isActivated: any = false;
+    activation_key: number;
+    isCheckedIn: any = false;
+  
 
-  constructor(public http: Http) {
+  constructor() {
     console.log('Hello User Provider');
+    this.name = 'Suhaimi Maidin';
+    this.staffNumber= 10010060;
+    this.email= 'suhaimi.maidin@prasarana.com.my';
+    this.department= 'ICT';
+    this.baseLocation= 'Subang';
   }
 
-  onSaveData(data) {
-    this.personalData.name = data.name;
-    this.personalData.staff_number = data.staff_number;
-    this.personalData.email = data.email;
-    this.personalData.department = data.department;
-    this.personalData.base_location = data.base_location;
+  onSave(data) {
+    console.log(data);
+    this.name = data.name;
+    this.staffNumber = data.staffNumber;
+    this.email = data.email;
+    this.department = data.department;
+    this.baseLocation = data.baseLocation;
   }
 
-  onActivated(data) {
-    this.personalData.activation_key = data.activation_key;
+  isSuccessActivation(data) {
+    this.isActivated = true;
+    this.activation_key = data;
   }
 
   onSubmitAttendance(process) {
-    this.personalData.process = process;
+    this.isCheckedIn = process;
   }
 }

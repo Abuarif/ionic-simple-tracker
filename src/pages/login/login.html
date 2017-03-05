@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar >
+    <ion-title>Activate MTAS</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <form (ngSubmit)="activateAccount()" #registerForm="ngForm">
+
+    <ion-list>
+
+      <ion-item>
+        <ion-label floating>Email Address</ion-label>
+        <ion-input type="text" placeholder="Email" name="email" [(ngModel)]="registerCredentials.email" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Email Password</ion-label>
+        <ion-input type="password" placeholder="Email Password" name="password" [(ngModel)]="registerCredentials.password" required></ion-input>
+      </ion-item>
+
+    </ion-list>
+
+
+    <div padding>
+      <button ion-button class="primary" block type="submit" [disabled]="!registerForm.form.valid">Activate</button>
+    </div>
+  </form>
+</ion-content>

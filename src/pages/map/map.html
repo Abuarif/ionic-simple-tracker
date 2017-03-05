@@ -13,7 +13,7 @@
         full 
         round 
         color="secondary" 
-        [disabled]="mapInitialised == false ? true : null" 
+        [disabled]="!isAllowed()? true : null" 
         (click)="showConfirm()">
           <ion-icon name="home"> 
             Submit

@@ -3,6 +3,8 @@ import { NavController, LoadingController } from 'ionic-angular';
 import { ConnectivityService } from '../../providers/connectivity-service';
 import { Geolocation } from 'ionic-native';
 import { AlertController } from 'ionic-angular'; 
+
+import { User } from '../../providers/user';
  
 declare var google;
  
@@ -25,7 +27,8 @@ export class MapPage {
     public navCtrl: NavController, 
     public connectivityService: ConnectivityService, 
     public alertCtrl: AlertController,
-    public loadingCtrl: LoadingController) {
+    public loadingCtrl: LoadingController,
+    public userService: User) {
 
     // this.loadGoogleMaps();
     this.loadScript();
@@ -235,4 +238,11 @@ export class MapPage {
     }).present();
   }
 
+  isAllowed() {
+    if (this.mapInitialised && this.userService.isActivated) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
