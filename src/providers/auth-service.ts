@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
-import { User } from '../user/user';
+import { User } from '../user';
 
 export class Staff {
   name: string;
