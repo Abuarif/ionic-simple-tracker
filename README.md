@@ -19,6 +19,9 @@ Use the following command to clone it.
 Change your directory to the app folder 
 > cd ionic-simple-tracker
 
+Just in case your node library is old
+> npm update
+
 Run the application
 > ionic serve
 
