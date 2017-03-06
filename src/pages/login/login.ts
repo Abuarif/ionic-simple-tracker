@@ -37,7 +37,7 @@ export class LoginPage {
           this.loading.dismiss();
           this.userService.isSuccessActivation('ok');
           this.nav.popToRoot();
-          },9000);
+          },6000);
         } else {
           this.showError("It takes awhile actually ...");
         }
