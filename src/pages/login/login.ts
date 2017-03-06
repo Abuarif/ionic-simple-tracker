@@ -31,18 +31,17 @@ export class LoginPage {
     this.showLoading()
     this.userService.login(this.registerCredentials)
     .subscribe(allowed => {
-      setTimeout(() => {
+      // setTimeout(() => {
         if (this.userService.isActivated) {
-          // setTimeout(() => {
+          setTimeout(() => {
           this.loading.dismiss();
           this.userService.isSuccessActivation('ok');
           this.nav.popToRoot();
-          // });
+          },9000);
         } else {
-          this.showError("Please try again...");
-          this.nav.popToRoot();
+          this.showError("It takes awhile actually ...");
         }
-      }, 3000);
+      // }, 3000);
       
     },
     error => {
