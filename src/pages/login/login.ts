@@ -3,7 +3,6 @@ import { NavController, AlertController, LoadingController, Loading } from 'ioni
 import { AuthService } from '../../providers/auth-service';
 import { User } from '../../providers/user';
 import { RegistrationPage } from '../registration/registration';
-import { SettingPage } from '../setting/setting';
  
 @Component({
   selector: 'page-login',
@@ -30,16 +29,21 @@ export class LoginPage {
 
   public activateAccount() {
     this.showLoading()
-    this.auth.login(this.registerCredentials).subscribe(allowed => {
-      if (allowed) {
-        setTimeout(() => {
-        this.loading.dismiss();
-        this.userService.isSuccessActivation('ok');
-        this.nav.popToRoot();
-        });
-      } else {
-        this.showError("Access Denied");
-      }
+    this.userService.login(this.registerCredentials)
+    .subscribe(allowed => {
+      setTimeout(() => {
+        if (this.userService.isActivated) {
+          // setTimeout(() => {
+          this.loading.dismiss();
+          this.userService.isSuccessActivation('ok');
+          this.nav.popToRoot();
+          // });
+        } else {
+          this.showError("Please try again...");
+          this.nav.popToRoot();
+        }
+      }, 3000);
+      
     },
     error => {
       this.showError(error);
@@ -59,7 +63,7 @@ export class LoginPage {
     });
  
     let alert = this.alertCtrl.create({
-      title: 'Fail',
+      title: 'System Alert',
       subTitle: text,
       buttons: ['OK']
     });
