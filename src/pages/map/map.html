@@ -9,7 +9,7 @@
       </ion-col>
       <ion-col width-50>
         <button ion-button full round color="primary" *ngIf="!isAllowed()" (click)="requestForActivation()">
-          <ion-icon name="unlock"> Activate</ion-icon> 
+          <ion-icon name="settings"> Setup</ion-icon> 
         </button>
         <button ion-button full round color="secondary" *ngIf="canCheckIn()" (click)="submitCheckInData()">
           <ion-icon name="clock"> Check In</ion-icon> 

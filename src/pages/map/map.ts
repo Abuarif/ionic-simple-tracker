@@ -5,7 +5,7 @@ import { Geolocation } from 'ionic-native';
 import { AlertController } from 'ionic-angular'; 
 
 import { User } from '../../providers/user';
-import { LoginPage } from '../login/login';
+import { SettingPage } from '../setting/setting';
  
 declare var google;
  
@@ -315,6 +315,6 @@ export class MapPage {
   }
 
   requestForActivation() {
-    this.navCtrl.push(LoginPage);
+    this.navCtrl.push(SettingPage);
   }
 }
