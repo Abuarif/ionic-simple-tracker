@@ -23,14 +23,13 @@
   </ion-list>
   <ion-list>
     <ion-item *ngFor="let service of services">
-      {{ service.UserService.service_date | date:'dd-MM-yyyy'}}
+      {{ service.UserService.service_date | date:'EEEE, dd-MM-yyyy'}}
       <ion-item *ngFor="let tag of service.UserTag">
-        <ion-icon name="sunny" color="warning" *ngIf="tag.direction == 1" item-left></ion-icon>
+        <ion-icon name="sunny" color="secondary" *ngIf="tag.direction == 1" item-left></ion-icon>
         <ion-icon name="moon" color="dark" *ngIf="tag.direction == 2" item-left></ion-icon>
-        {{ tag.direction }} &nbsp;&nbsp;
         <label *ngIf="tag.direction == 1">In</label>
-        <label *ngIf="tag.direction == 2">Out</label>&nbsp;&nbsp; 
-        {{ tag.tag_date | date:'hh:mm'}}
+        <label *ngIf="tag.direction == 2">Out</label> 
+        <p item-right>{{ tag.tag_date | date:'hh:mma'}}</p>
 
       </ion-item>
     </ion-item>
