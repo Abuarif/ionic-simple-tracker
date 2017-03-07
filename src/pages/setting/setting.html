@@ -92,7 +92,10 @@
         </button>
       </ion-col>
       <ion-col width-50>
-        <button ion-button full round color="danger" [disabled]="personalData.isActivated == false ? true : null"  (click)="requestForActivation()">
+        <button ion-button full round color="danger"  *ngIf="personalData.isActivated" disabled>
+          <ion-icon name="lock"> Activate</ion-icon> 
+        </button>
+        <button ion-button full round color="danger" *ngIf="!personalData.isActivated" (click)="requestForActivation()">
           <ion-icon name="lock"> Activate</ion-icon> 
         </button>
       </ion-col>

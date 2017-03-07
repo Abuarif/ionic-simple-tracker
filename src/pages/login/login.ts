@@ -3,6 +3,7 @@ import { NavController, AlertController, LoadingController, Loading } from 'ioni
 import { AuthService } from '../../providers/auth-service';
 import { User } from '../../providers/user';
 import { RegistrationPage } from '../registration/registration';
+import { TabsPage } from '../tabs/tabs';
  
 @Component({
   selector: 'page-login',
@@ -31,17 +32,16 @@ export class LoginPage {
     this.showLoading()
     this.userService.login(this.registerCredentials)
     .subscribe(allowed => {
-      // setTimeout(() => {
+      setTimeout(() => {
         if (this.userService.isActivated) {
           setTimeout(() => {
           this.loading.dismiss();
           this.userService.isSuccessActivation('ok');
-          this.nav.popToRoot();
+          // this.nav.popToRoot();
+          this.nav.push(TabsPage);
           },6000);
-        } else {
-          this.showError("It takes awhile actually ...");
-        }
-      // }, 3000);
+        } 
+      }, 3000);
       
     },
     error => {

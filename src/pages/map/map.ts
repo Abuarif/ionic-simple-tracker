@@ -34,7 +34,9 @@ export class MapPage {
 
     this.loadGoogleMaps();
     this.isActivated = this.userService.isActivated;
-
+    if (!this.isActivated) {
+      this.activateFirst();
+    }
   }
 
   loadGoogleMaps(){
@@ -222,6 +224,23 @@ export class MapPage {
     confirm.present();
   }
 
+  activateFirst() {
+    let activate = this.alertCtrl.create({
+      title: 'Activation Required!',
+      message: 'Please configure your account and activate it.',
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            console.log('configure account ..');
+            this.navCtrl.push(SettingPage);
+          }
+        }
+      ]
+    });
+    activate.present();
+  }
+
   debug(message) {
     let alert = this.alertCtrl.create({
       title: 'Information',
@@ -248,9 +267,11 @@ export class MapPage {
   }
 
   canCheckIn() {
-    if (this.userService.isActivated && !this.userService.isCheckedIn) {
+    if (!this.userService.isCheckedIn) {
       return true;
-    } 
+    } else {
+      return false;
+    }
   }
 
   submitCheckInData() {
@@ -282,8 +303,10 @@ export class MapPage {
   }
 
   canCheckOut() {
-    if (this.userService.isActivated && this.userService.isCheckedIn) {
+    if (this.userService.isCheckedIn) {
       return true;
+    } else {
+      return false;
     }
   }
 

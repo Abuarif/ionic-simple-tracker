@@ -15,10 +15,7 @@
         </button>
       </ion-col>
       <ion-col width-50>
-        <button ion-button full round color="light" [disabled]="isActivated == false ? true: null">
-          <ion-icon name="clock"> Check In</ion-icon> 
-        </button>
-        <button ion-button full round color="secondary" *ngIf="canCheckIn()" (click)="submitCheckInData()">
+        <button ion-button full round color="secondary" [disabled]="isActivated == false ? true: null" *ngIf="canCheckIn()" (click)="submitCheckInData()">
           <ion-icon name="clock"> Check In</ion-icon> 
         </button>
         <button ion-button full round color="danger" *ngIf="canCheckOut()" (click)="submitCheckOutData()">

@@ -36,8 +36,8 @@ export class SettingPage {
     public userService: User,
     private auth: AuthService
     ) {
-      this.personalData = userService;
-      this.personalData.isActivated = userService.isActivated;
+      this.personalData = this.userService;
+      this.personalData.isActivated = this.userService.isActivated;
     }
 
   public pushPage(pageToPush) {
