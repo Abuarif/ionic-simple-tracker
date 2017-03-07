@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class User {
 
-  
+
   name: string;
   staffNumber: number;
   email: string;
@@ -15,16 +15,16 @@ export class User {
   isActivated: any = false;
   activation_key: number;
   isCheckedIn: any = false;
-  authServer: string = 'https://mtas.prasarana.com.my/web_login';
-
+  targerServer: string = 'https://mtas.prasarana.com.my';
+  tags: any;
 
   constructor(private http: Http) {
     console.log('Hello User Provider');
     this.name = 'Suhaimi Maidin';
-    this.staffNumber= 10010060;
-    this.email= 'suhaimi.maidin@prasarana.com.my';
-    this.department= 'ICT';
-    this.baseLocation= 'Subang';
+    this.staffNumber = 10010060;
+    this.email = 'suhaimi.maidin@prasarana.com.my';
+    this.department = 'ICT';
+    this.baseLocation = 'Subang';
   }
 
   public login(credentials) {
@@ -42,26 +42,65 @@ export class User {
   }
 
   getAccess(credentials) {
-    let myRequest = this.authServer 
-        + '?username=' + credentials.email.split('@')[0] 
-        + '&password=' +  credentials.password;
+    let myRequest = this.targerServer
+      + '/web_login?username=' + credentials.email.split('@')[0]
+      + '&password=' + credentials.password;
     console.log('request: ' + myRequest);
     this.http.get(myRequest)
       .map(res => res.json())
       .subscribe(data => {
-      this.activation_key = data;
-      this.isActivated = true;
-      console.log('activation_key: '+ data);
-      // console.log('horay 2: '+ this.isActivated);
-      //  if (data == 1) return true;
-      
-    }, error => {
+        this.activation_key = data;
+        this.isActivated = true;
+        console.log('activation_key: ' + data);
+        // console.log('horay 2: '+ this.isActivated);
+        //  if (data == 1) return true;
+
+      }, error => {
         console.log("Oooops!");
         return false;
-    });
+      });
 
   }
-  
+
+  // public getActivities(credentials) {
+  //   if (credentials.key === null) {
+  //     return Observable.throw("Please insert credentials");
+  //   } else {
+  //     return Observable.create(observer => {
+  //       // At this point make a request to your backend to make a real check!
+  //       // let access = (credentials.password === "pass" && credentials.email === "email");
+  //       let access = this.getTags(credentials);
+  //       observer.next(access);
+  //       observer.complete();
+  //     });
+  //   }
+  // }
+
+  // getTags(credentials) {
+  //   let myRequest = this.targerServer
+  //     + 'activity.json?key=' + credentials.key;
+  //   console.log('request: ' + myRequest);
+  //   this.http.get(myRequest)
+  //     .map(res => res.json())
+  //     .subscribe(data => {
+  //       this.tags = data;
+  //       console.log('tags: ' + data);
+
+  //     }, error => {
+  //       console.log("Oooops!");
+  //       return false;
+  //     });
+
+  // }
+
+  getTags(activation_key, limit) {
+    let myRequest = this.targerServer
+      + '/activity.json?key=' + activation_key + '&limit=' + limit;
+    console.log('request: ' + myRequest);
+    return this.http.get(myRequest)
+      .map(res => res.json());
+  }
+
   onSave(data) {
     console.log(data);
     this.name = data.name;
