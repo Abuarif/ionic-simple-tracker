@@ -42,13 +42,16 @@ export class User {
   }
 
   getAccess(credentials) {
-    this.http.get(this.authServer 
+    let myRequest = this.authServer 
         + '?username=' + credentials.email.split('@')[0] 
-        + '&password=' +  credentials.password)
+        + '&password=' +  credentials.password;
+    console.log('request: ' + myRequest);
+    this.http.get(myRequest)
       .map(res => res.json())
       .subscribe(data => {
-      this.isActivated = data;
-      // console.log('horay: '+ data);
+      this.activation_key = data;
+      this.isActivated = true;
+      console.log('activation_key: '+ data);
       // console.log('horay 2: '+ this.isActivated);
       //  if (data == 1) return true;
       
