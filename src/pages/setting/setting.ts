@@ -35,10 +35,7 @@ export class SettingPage {
     private auth: AuthService
     ) {
       this.personalData = userService;
-      let info = this.auth.getUserInfo();
-      console.log('info' + info);
-      // this.personalData.name = info.name;
-      // this.personalData.email = info.email;
+      this.personalData.isActivated = userService.isActivated;
     }
 
   public isActivatedAccount() {

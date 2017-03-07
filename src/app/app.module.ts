@@ -8,6 +8,10 @@ import { MapPage } from '../pages/map/map';
 import { SettingPage } from '../pages/setting/setting';
 import { RegistrationPage } from '../pages/registration/registration';
 import { LoginPage } from '../pages/login/login';
+
+import { PersonalStatPage } from '../pages/personal-stat/personal-stat';
+import { GroupStatPage } from '../pages/group-stat/group-stat';
+
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { ConnectivityService } from '../providers/connectivity-service';
@@ -23,6 +27,8 @@ import { AuthService } from '../providers/auth-service';
     SettingPage,
     RegistrationPage,
     LoginPage,
+    PersonalStatPage,
+    GroupStatPage,
     TabsPage
     
   ],
@@ -38,6 +44,8 @@ import { AuthService } from '../providers/auth-service';
     SettingPage,
     RegistrationPage,
     LoginPage,
+    PersonalStatPage,
+    GroupStatPage,
     TabsPage
     
   ],

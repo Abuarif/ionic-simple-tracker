@@ -31,9 +31,7 @@ export class MapPage {
     public loadingCtrl: LoadingController,
     public userService: User) {
 
-    // this.loadGoogleMaps();
-    this.loadScript();
-    this.initMap();
+    this.loadGoogleMaps();
 
   }
   

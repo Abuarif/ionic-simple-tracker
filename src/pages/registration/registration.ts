@@ -37,6 +37,7 @@ export class RegistrationPage {
       if (success) {
         this.createSuccess = true;
           // this.showPopup("Success", "Account created.");
+          this.userService.isActivated = false;
           this.userService.onSave(this.registerCredentials);
           this.nav.popTo(SettingPage);
       } else {
