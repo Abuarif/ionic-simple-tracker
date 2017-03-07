@@ -5,6 +5,7 @@ import { Geolocation } from 'ionic-native';
 import { AlertController } from 'ionic-angular'; 
 
 import { User } from '../../providers/user';
+import { RegistrationPage } from '../registration/registration';
 import { SettingPage } from '../setting/setting';
  
 declare var google;
@@ -233,7 +234,7 @@ export class MapPage {
           text: 'Ok',
           handler: () => {
             console.log('configure account ..');
-            this.navCtrl.push(SettingPage);
+            this.navCtrl.push(RegistrationPage);
           }
         }
       ]

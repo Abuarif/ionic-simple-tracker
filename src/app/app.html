@@ -6,25 +6,34 @@
     </ion-header>
 
     <ion-content>
+        <ion-card class="card-ios">
+            <ion-card-header>
+                <p>Salam HoRMAT {{ name }}. </p>
+            </ion-card-header>
+            <ion-card-content>
+                <button menuClose ion-button block round color="danger" (click)="openPage(activate)" [disabled]="isActivated == true ? true: null">
+                    <ion-icon name="lock"></ion-icon>
+                    &nbsp;&nbsp;Activate Now
+                </button>
+            </ion-card-content>
+        </ion-card>
         <ion-list>
-            <ion-list-header>
-                <ion-icon name="clock" item-left color="danger"></ion-icon>
+            <ion-list-header class="item-content">
+                <ion-icon name="clock" item-left color="primary"></ion-icon>
                  Attendance
             </ion-list-header>
             <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
                 <ion-icon [name]="p.icon" light item-left></ion-icon>
-                <p item-right>{{p.title}}</p>
+                <p>{{p.title}}</p>
             </button>
 
-        </ion-list>
-        <ion-list>
-            <ion-list-header>
+            <ion-list-header class="item-content">
                 <ion-icon name="stats" item-left color="primary"></ion-icon>
                  Statistics
             </ion-list-header>
             <button menuClose ion-item *ngFor="let stat of stats" (click)="openPage(stat)">
-                <ion-icon [name]="stat.icon" light></ion-icon>
-                <p item-right>{{stat.title}}</p>
+                <ion-icon [name]="stat.icon" light item-left></ion-icon>
+                <p>{{stat.title}}</p>
             </button>
         </ion-list>
     </ion-content>

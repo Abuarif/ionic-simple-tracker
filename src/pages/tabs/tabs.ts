@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { MapPage } from '../map/map';
 import { ActivitiesPage } from '../activities/activities';
-import { SettingPage } from '../setting/setting';
+import { PersonalStatPage } from '../personal-stat/personal-stat';
 
 @Component({
   selector: 'page-tabs',
@@ -13,6 +13,6 @@ export class TabsPage {
 
   mapPage = MapPage;
   activitiesPage = ActivitiesPage;
-  settingPage = SettingPage;
+  personalStatPage = PersonalStatPage;
 
 }

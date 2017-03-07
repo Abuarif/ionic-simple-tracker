@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Registration</ion-title>
+    <ion-title>Add Profile</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -42,10 +42,16 @@
       </ion-item>
 
     </ion-list>
-
-
-    <div padding>
-      <button ion-button class="primary" block type="submit" [disabled]="!registerForm.form.valid">Register</button>
-    </div>
+  
+    <ion-grid>
+      <ion-row>
+        <ion-col width-50>
+          <button ion-button color="primary" block round type="submit" [disabled]="!registerForm.form.valid">Save</button>
+        </ion-col>
+        <ion-col width-50>
+          <button ion-button color="danger" block round type="button" [disabled]="!registerForm.form.valid" (click)="goToRoot()">Cancel</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </form>
 </ion-content>

@@ -29,19 +29,20 @@ export class LoginPage {
   }
 
   public activateAccount() {
-    this.showLoading()
+    this.showLoading();
     this.userService.login(this.registerCredentials)
     .subscribe(allowed => {
-      setTimeout(() => {
+      // setTimeout(() => {
         if (this.userService.isActivated) {
           setTimeout(() => {
-          this.loading.dismiss();
-          this.userService.isSuccessActivation('ok');
-          // this.nav.popToRoot();
-          this.nav.push(TabsPage);
-          },6000);
-        } 
-      }, 3000);
+            console.log('Account activated ...');
+            this.loading.dismiss();
+            this.nav.push(TabsPage);
+          },2000);
+        } else {
+          this.showError('Please try again ...');
+        }
+      // }, 2000);
       
     },
     error => {

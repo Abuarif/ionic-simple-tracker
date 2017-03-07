@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import { AuthService } from '../../providers/auth-service';
 
-import { SettingPage } from '../setting/setting';
+import { LoginPage } from '../login/login';
+import { MapPage } from '../map/map';
 import { User } from '../../providers/user';
 
 @Component({
@@ -32,6 +33,13 @@ export class RegistrationPage {
     public userService: User
   ) { }
 
+  goToRoot() {
+    this.navCtrl.push(MapPage);
+  }
+
+  resetForm() {
+    // to be implemented 
+  }
   public register() {
     this.auth.register(this.registerCredentials)
       .subscribe(success => {
@@ -40,7 +48,7 @@ export class RegistrationPage {
           // this.showPopup("Success", "Account created.");
           this.userService.onSave(this.registerCredentials);
           this.userService.isActivated = false;
-          this.navCtrl.popTo(SettingPage);
+          this.navCtrl.push(LoginPage);
         } else {
           this.showPopup("Error", "Problem creating account.");
         }
@@ -59,7 +67,7 @@ export class RegistrationPage {
           text: 'OK',
           handler: data => {
             if (this.createSuccess) {
-              this.navCtrl.popTo(SettingPage);
+              this.navCtrl.push(LoginPage);
             }
           }
         }
