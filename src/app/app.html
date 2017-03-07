@@ -8,10 +8,11 @@
     <ion-content>
         <ion-list>
             <ion-list-header>
-                Settings
+                Attendance
             </ion-list-header>
             <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-                {{p.title}}
+                <ion-icon [name]="p.icon" light item-left></ion-icon>
+                <p item-right>{{p.title}}</p>
             </button>
 
         </ion-list>
@@ -20,8 +21,9 @@
                 Statistics
             </ion-list-header>
             <button menuClose ion-item *ngFor="let stat of stats" (click)="openPage(stat)">
-        {{stat.title}}
-      </button>
+                <ion-icon [name]="stat.icon" light></ion-icon>
+                <p item-right>{{stat.title}}</p>
+            </button>
         </ion-list>
     </ion-content>
 

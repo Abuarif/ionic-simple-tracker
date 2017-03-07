@@ -23,6 +23,7 @@ export class MapPage {
   latLng: any;
   lat: number;
   long: number;
+  isActivated:any;
  
   constructor(
     public navCtrl: NavController, 
@@ -32,9 +33,10 @@ export class MapPage {
     public userService: User) {
 
     this.loadGoogleMaps();
+    this.isActivated = this.userService.isActivated;
 
   }
-  
+
   loadGoogleMaps(){
     // this.debug('loadGoogleMaps');
     this.addConnectivityListeners();

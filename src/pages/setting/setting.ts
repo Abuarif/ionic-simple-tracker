@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { AlertController, ActionSheetController } from 'ionic-angular'; 
+import { App, ViewController, AlertController, ActionSheetController } from 'ionic-angular'; 
 
 import { User } from '../../providers/user';
 
@@ -27,6 +27,8 @@ export class SettingPage {
   };
 
   constructor(
+    public appCtrl: App,
+    public viewCtrl: ViewController,
     public navCtrl: NavController, 
     public navParams: NavParams,
     public alertCtrl: AlertController,
@@ -38,6 +40,11 @@ export class SettingPage {
       this.personalData.isActivated = userService.isActivated;
     }
 
+  public pushPage(pageToPush) {
+    this.viewCtrl.dismiss();
+    this.appCtrl.getRootNav().push(pageToPush);
+  }
+  
   public isActivatedAccount() {
 
     if (this.personalData.isActivated) {

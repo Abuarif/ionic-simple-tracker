@@ -6,7 +6,6 @@ import { TabsPage } from '../pages/tabs/tabs';
 
 import { ActivitiesPage } from '../pages/activities/activities';
 import { LoginPage } from '../pages/login/login';
-import { RegistrationPage } from '../pages/registration/registration';
 import { SettingPage } from '../pages/setting/setting';
 
 import { PersonalStatPage } from '../pages/personal-stat/personal-stat';
@@ -18,8 +17,8 @@ import { GroupStatPage } from '../pages/group-stat/group-stat';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
   rootPage = TabsPage;
-  pages: Array<{ title: string, component: any }>;
-  stats: Array<{ title: string, component: any }>;
+  pages: Array<{ title: string, component: any, icon: any }>;
+  stats: Array<{ title: string, component: any, icon: any }>;
 
   constructor(
     public platform: Platform,
@@ -29,16 +28,15 @@ export class MyApp {
     this.initializeApp();
 
     this.pages = [
-      { title: 'Home', component: TabsPage },
-      { title: 'Profile', component: SettingPage },
-      { title: 'Register', component: RegistrationPage },
-      { title: 'Attendance History', component: ActivitiesPage },
-      { title: 'Activate', component: LoginPage }
+      { title: 'Home', component: TabsPage, icon: 'home' },
+      { title: 'Profile', component: SettingPage, icon: 'person' },
+      { title: 'Attendance History', component: ActivitiesPage, icon: 'list' },
+      { title: 'Activate', component: LoginPage, icon: 'power' }
     ];
 
     this.stats = [
-      { title: 'Personal', component: PersonalStatPage },
-      { title: 'Group', component: GroupStatPage },
+      { title: 'Personal', component: PersonalStatPage, icon: 'person' },
+      { title: 'Group', component: GroupStatPage, icon: 'people' },
     ];
   }
 
