@@ -21,7 +21,6 @@ export class MyApp {
   rootPage = TabsPage;
   pages: Array<{ title: string, component: any, icon: any}>;
   stats: Array<{ title: string, component: any, icon: any}>;
-  activate: { title: string, component: any };
   name: string;
   isActivated: any;
 
@@ -35,13 +34,12 @@ export class MyApp {
     this.isActivated = this.userService.isActivated;
 
     this.initializeApp();
-    console.log('activation: ' + this.isActivated);
-    this.activate = { title: 'Activate', component: LoginPage };
 
     this.pages = [
       { title: 'Home', component: TabsPage, icon: 'home'},
       { title: 'Profile', component: SettingPage, icon: 'person'},
       { title: 'Attendance History', component: ActivitiesPage, icon: 'list'},
+      { title: 'Activate', component: LoginPage, icon: 'lock'}
     ];
 
     this.stats = [
@@ -64,7 +62,6 @@ export class MyApp {
   }
 
   openPage(page) {
-    console.log('page: ' + page.component);
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
