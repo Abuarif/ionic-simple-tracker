@@ -14,6 +14,7 @@ export class User {
   baseLocation: string;
   isActivated: any = false;
   activation_key: string;
+  staff_id:number;
   isCheckedIn: any = false;
   targerServer: string = 'https://mtas.prasarana.com.my';
   tags: any;
@@ -43,18 +44,16 @@ export class User {
 
   getAccess(credentials) {
     let myRequest = this.targerServer
-      + '/web_login?username=' + credentials.email.split('@')[0]
+      + '/web_login.json?username=' + credentials.email.split('@')[0]
       + '&password=' + credentials.password;
     console.log('request: ' + myRequest);
     this.http.get(myRequest)
       .map(res => res.json())
       .subscribe(data => {
-        this.activation_key = data;
-        this.isActivated = true;
-        console.log('activation_key: ' + data);
-        // console.log('horay 2: '+ this.isActivated);
-        //  if (data == 1) return true;
-
+        console.log('data: ' + JSON.stringify(data));
+        this.activation_key = data.key;
+        this.staff_id = data.staff_id;
+        if (this.activation_key != '') this.isActivated = true;
       }, error => {
         console.log("Oooops!");
         return false;
@@ -93,13 +92,13 @@ export class User {
 
   // }
 
-  getTags(activation_key: any, start:number=0, length: number) {
+  getTags(activation_key: any, limit:number ) {
     let myRequest = this.targerServer
-      + '/activity.json?key=' + activation_key + '&start=' + start + '&length=' + length;
-      // + '/activity.json?key=' + activation_key + '&limit=' + limit;
+      // + '/activity.json?key=' + activation_key + '&start=' + start + '&length=' + length;
+      + '/activity.json?key=' + activation_key + '&limit=' + limit;
     console.log('request: ' + myRequest);
     return this.http.get(myRequest)
-      .map(res => res);
+      .map(res => res.json());
   }
 
   load(activation_key: any, start:number=0, length: number) {

@@ -18,7 +18,7 @@ export class ActivitiesPage {
   public services: any = [];
   limit: any = 5;
   activation_key: string;
-  private start: number = 0;
+  private start: number = 5;
   private length: number = 10;
 
   constructor(
@@ -26,7 +26,7 @@ export class ActivitiesPage {
     public navParams: NavParams,
     public userService: User) {
     this.activation_key = this.userService.activation_key;
-
+    // this.loadTags();
   }
 
   loadTags() {
@@ -35,9 +35,9 @@ export class ActivitiesPage {
       
       this.userService.load(this.userService.activation_key, this.start, this.length)
       .then(data => {
-        
+          // console.log(JSON.stringify(data));
           this.services.push(data);
-        
+          // console.log(JSON.stringify(this.services));
         resolve(true);
         
       });
@@ -62,9 +62,9 @@ export class ActivitiesPage {
   }
 
   getTags() {
-    this.userService.getTags(this.activation_key, this.start, this.length)
+    this.userService.getTags(this.activation_key, this.limit)
       .subscribe(response => {
-        this.services.push(response);
+        this.services = response ;
         // console.log(response);
       });
   }
