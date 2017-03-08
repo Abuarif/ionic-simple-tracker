@@ -13,7 +13,7 @@ export class User {
   department: string;
   baseLocation: string;
   isActivated: any = false;
-  activation_key: number;
+  activation_key: any;
   isCheckedIn: any = false;
   targerServer: string = 'https://mtas.prasarana.com.my';
   tags: any;
@@ -93,12 +93,30 @@ export class User {
 
   // }
 
-  getTags(activation_key, limit) {
+  getTags(activation_key: any, start:number=0, length: number) {
     let myRequest = this.targerServer
-      + '/activity.json?key=' + activation_key + '&limit=' + limit;
+      + '/activity.json?key=' + activation_key + '&start=' + start + '&length=' + length;
+      // + '/activity.json?key=' + activation_key + '&limit=' + limit;
     console.log('request: ' + myRequest);
     return this.http.get(myRequest)
-      .map(res => res.json());
+      .map(res => res);
+  }
+
+  load(activation_key: any, start:number=0, length: number) {
+    let myRequest = this.targerServer
+      + '/activity.json?key=' + activation_key + '&start=' + start + '&length=' + length;
+    console.log('request: ' + myRequest);
+
+    return new Promise(resolve => {
+      
+      this.http.get(myRequest)
+        .map(res => res.json())
+        .subscribe(data => {
+
+          resolve(data);
+
+        });
+    });
   }
 
   onSave(data) {
