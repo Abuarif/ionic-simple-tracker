@@ -18,6 +18,8 @@ import { ConnectivityService } from '../providers/connectivity-service';
 import { User } from '../providers/user';
 import { AuthService } from '../providers/auth-service';
 
+import { Storage } from '@ionic/storage';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -53,7 +55,8 @@ import { AuthService } from '../providers/auth-service';
     {provide: ErrorHandler, useClass: IonicErrorHandler}, 
     ConnectivityService,
     User,
-    AuthService
+    AuthService,
+    Storage
     ]
 })
 export class AppModule {}

@@ -38,7 +38,7 @@ export class LoginPage {
             console.log('Account activated ...');
             this.loading.dismiss();
             this.nav.push(TabsPage);
-          },2000);
+          },1000);
         } else {
           this.showError('Please try again ...');
         }

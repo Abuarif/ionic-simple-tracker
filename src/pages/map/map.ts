@@ -2,37 +2,39 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
 import { ConnectivityService } from '../../providers/connectivity-service';
 import { Geolocation } from 'ionic-native';
-import { AlertController } from 'ionic-angular'; 
+import { AlertController } from 'ionic-angular';
 
 import { User } from '../../providers/user';
 import { RegistrationPage } from '../registration/registration';
 import { SettingPage } from '../setting/setting';
- 
+
 declare var google;
- 
+
 @Component({
   selector: 'page-map',
   templateUrl: 'map.html'
 })
 export class MapPage {
-  
+
   @ViewChild('map') mapElement: ElementRef;
- 
+
   map: any;
   mapInitialised: boolean = false;
   apiKey: any = 'AIzaSyA8BxZKXjS4z7yFRvTDBzBbt0V9x7I17Ug';
   latLng: any;
   lat: number;
   long: number;
-  isActivated:any;
- 
+  isActivated: any;
+  isCheckedIn: any = false;
+
   constructor(
-    public navCtrl: NavController, 
-    public connectivityService: ConnectivityService, 
+    public navCtrl: NavController,
+    public connectivityService: ConnectivityService,
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
     public userService: User) {
 
+    this.userService.getBootUpData();
     this.loadGoogleMaps();
     this.isActivated = this.userService.isActivated;
     if (!this.isActivated) {
@@ -40,40 +42,40 @@ export class MapPage {
     }
   }
 
-  loadGoogleMaps(){
+  loadGoogleMaps() {
     // this.debug('loadGoogleMaps');
     this.addConnectivityListeners();
- 
-    if(typeof google == "undefined" || typeof google.maps == "undefined"){
-  
+
+    if (typeof google == "undefined" || typeof google.maps == "undefined") {
+
       console.log("Google maps JavaScript needs to be loaded.");
       this.disableMap();
-  
-      if(this.connectivityService.isOnline()){
+
+      if (this.connectivityService.isOnline()) {
         console.log("online, loading map");
-  
+
         //Load the SDK
         window['mapInit'] = () => {
           this.initMap();
           this.enableMap();
         }
-  
+
         let script = document.createElement("script");
         script.id = "googleMaps";
-  
-        if(this.apiKey){
+
+        if (this.apiKey) {
           script.src = 'https://maps.googleapis.com/maps/api/js?key=' + this.apiKey + '&callback=mapInit';
           console.log("API Key is available!");
         } else {
-          script.src = 'https://maps.googleapis.com/maps/api/js?callback=mapInit';       
+          script.src = 'https://maps.googleapis.com/maps/api/js?callback=mapInit';
         }
-  
-        document.body.appendChild(script);  
-  
-      } 
+
+        document.body.appendChild(script);
+
+      }
     } else {
-  
-      if(this.connectivityService.isOnline()){
+
+      if (this.connectivityService.isOnline()) {
         console.log("showing map");
         this.initMap();
         this.enableMap();
@@ -84,27 +86,27 @@ export class MapPage {
       }
     }
   }
- 
+
   loadScript() {
     let script = document.createElement("script");
     script.id = "googleMaps";
 
-    if(this.apiKey){
+    if (this.apiKey) {
       script.src = 'https://maps.googleapis.com/maps/api/js?key=' + this.apiKey;
       console.log("API Key is available!");
     } else {
-      script.src = 'https://maps.googleapis.com/maps/api/js?callback=initMap';       
+      script.src = 'https://maps.googleapis.com/maps/api/js?callback=initMap';
     }
 
-    document.body.appendChild(script);  
+    document.body.appendChild(script);
   }
 
-  initMap(){
+  initMap() {
     this.presentLoading();
 
     Geolocation.getCurrentPosition().then((position) => {
       this.mapInitialised = true;
-      
+
       this.latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
       this.lat = position.coords.latitude;
       this.long = position.coords.longitude;
@@ -114,18 +116,18 @@ export class MapPage {
         zoom: 17,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       }
- 
+
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
       this.addMarker();
-      
+
     }, (error) => {
       this.mapInitialised = false;
       console.log('Check GPS');
       this.enableGPS();
     });
   }
- 
-  enableGPS(){
+
+  enableGPS() {
     let alert = this.alertCtrl.create({
       title: 'GPS not available!',
       subTitle: 'Please enable your GPS.',
@@ -133,70 +135,70 @@ export class MapPage {
     });
     alert.present();
   }
- 
-  disableMap(){
+
+  disableMap() {
     console.log("disable map");
   }
- 
-  enableMap(){
+
+  enableMap() {
     console.log("enable map");
   }
- 
-  addConnectivityListeners(){
- 
+
+  addConnectivityListeners() {
+
     let onOnline = () => {
- 
+
       setTimeout(() => {
-        if(typeof google == "undefined" || typeof google.maps == "undefined"){
- 
+        if (typeof google == "undefined" || typeof google.maps == "undefined") {
+
           this.loadGoogleMaps();
- 
+
         } else {
- 
-          if(!this.mapInitialised){
+
+          if (!this.mapInitialised) {
             this.initMap();
           }
- 
+
           this.enableMap();
         }
       }, 1000);
- 
+
     };
- 
+
     let onOffline = () => {
       this.disableMap();
     };
- 
+
     document.addEventListener('online', onOnline, false);
     document.addEventListener('offline', onOffline, false);
- 
+
   }
 
-  addMarker(){
- 
-   let marker = new google.maps.Marker({
-        map: this.map,
-        animation: google.maps.Animation.DROP,
-        position: this.map.getCenter()
-      });
-    
-      let content = "<h4>You are here!</h4>" 
-                    + "<br/>Latitude: " + this.lat 
-                    + "<br/>Longitude: " + this.long;          
-    
-      this.addInfoWindow(marker, content);
+  addMarker() {
+
+    let marker = new google.maps.Marker({
+      map: this.map,
+      animation: google.maps.Animation.DROP,
+      position: this.map.getCenter()
+    });
+
+    let content = "<h4>You are here!</h4>"
+      + "<br/>Latitude: " + this.lat
+      + "<br/>Longitude: " + this.long;
+
+    this.addInfoWindow(marker, content);
   }
 
-  addInfoWindow(marker, content){
- 
+  addInfoWindow(marker, content) {
+
     let infoWindow = new google.maps.InfoWindow({
       content: content
     });
-  
+
     google.maps.event.addListener(marker, 'click', () => {
       infoWindow.open(this.map, marker);
     });
-  
+
   }
 
   showConfirm() {
@@ -213,8 +215,8 @@ export class MapPage {
         {
           text: 'Agree',
           handler: () => {
-            console.log('Agree clicked '+ this.latLng);
-            let message = 'Your location is at: ' 
+            console.log('Agree clicked ' + this.latLng);
+            let message = 'Your location is at: '
               + '<br/> Lat: ' + this.lat
               + '<br/> Long: ' + this.long;
             this.debug(message);
@@ -289,12 +291,9 @@ export class MapPage {
         {
           text: 'Agree',
           handler: () => {
-            console.log('Agree clicked '+ this.latLng);
+            console.log('Agree clicked ' + this.latLng);
             this.userService.isCheckedIn = true;
-            let message = 'Your location is at: ' 
-              + '<br/> Lat: ' + this.lat
-              + '<br/> Long: ' + this.long;
-            this.debug(message);
+            this.submitTags(1);
           }
         }
       ]
@@ -325,12 +324,9 @@ export class MapPage {
         {
           text: 'Agree',
           handler: () => {
-            console.log('Agree clicked '+ this.latLng);
+            console.log('Agree clicked ' + this.latLng);
             this.userService.isCheckedIn = false;
-            let message = 'Your location is at: ' 
-              + '<br/> Lat: ' + this.lat
-              + '<br/> Long: ' + this.long;
-            this.debug(message);
+            this.submitTags(2);
           }
         }
       ]
@@ -340,5 +336,22 @@ export class MapPage {
 
   requestForActivation() {
     this.navCtrl.push(SettingPage);
+  }
+
+  submitTags(direction: any) {
+    this.userService.submitTags(direction, this.lat, this.long)
+      .subscribe(response => {
+        let data: any;
+        if (response.result == '1' && direction == 1) {
+          data.isCheckedIn = true;
+        } else if (response.result == '1' && direction == 2) {
+          data.isCheckedIn = false;
+        }
+        this.userService.onSubmittedAttendance(data);
+      }, error => {
+        console.log("Oooops!");
+        return false;
+      });
+
   }
 }

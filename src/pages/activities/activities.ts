@@ -18,8 +18,8 @@ export class ActivitiesPage {
   public services: any = [];
   limit: any = 5;
   activation_key: string;
-  private start: number = 5;
-  private length: number = 10;
+  // private start: number = 5;
+  // private length: number = 10;
 
   constructor(
     public navCtrl: NavController,
@@ -29,33 +29,33 @@ export class ActivitiesPage {
     // this.loadTags();
   }
 
-  loadTags() {
+  // loadTags() {
     
-    return new Promise(resolve => {
+  //   return new Promise(resolve => {
       
-      this.userService.load(this.userService.activation_key, this.start, this.length)
-      .then(data => {
-          // console.log(JSON.stringify(data));
-          this.services.push(data);
-          // console.log(JSON.stringify(this.services));
-        resolve(true);
+  //     this.userService.load(this.userService.activation_key, this.start, this.length)
+  //     .then(data => {
+  //         // console.log(JSON.stringify(data));
+  //         this.services.push(data);
+  //         // console.log(JSON.stringify(this.services));
+  //       resolve(true);
         
-      });
+  //     });
             
-    });
+  //   });
 
-  }
+  // }
   
 
-  doInfinite(infiniteScroll: any) {
-    console.log('doInfinite, start is currently ' + this.start);
-    this.start += this.length;
+  // doInfinite(infiniteScroll: any) {
+  //   console.log('doInfinite, start is currently ' + this.start);
+  //   this.start += this.length;
 
-    this.loadTags().then(() => {
-      infiniteScroll.complete();
-    });
+  //   this.loadTags().then(() => {
+  //     infiniteScroll.complete();
+  //   });
 
-  }
+  // }
 
   ngOnInit() {
     this.getTags();
