@@ -22,7 +22,7 @@ export class SettingPage {
     department: string,
     baseLocation: string,
     isActivated: any,
-    activation_key: any,
+    activation_key: string,
     isCheckedIn: any
   };
 

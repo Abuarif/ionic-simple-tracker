@@ -11,34 +11,66 @@ import { User } from '../../providers/user';
 */
 @Component({
   selector: 'page-activities',
-  templateUrl: 'activities.html'
+  templateUrl: 'activities.html',
+  // providers: [User]
 })
 export class ActivitiesPage {
-  services: any;
+  public services: any = [];
   limit: any = 5;
-  activation_key: any;
+  activation_key: string;
+  private start: number = 0;
+  private length: number = 10;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public userService: User) {
     this.activation_key = this.userService.activation_key;
+
+  }
+
+  loadTags() {
+    
+    return new Promise(resolve => {
+      
+      this.userService.load(this.userService.activation_key, this.start, this.length)
+      .then(data => {
+        
+          this.services.push(data);
+        
+        resolve(true);
+        
+      });
+            
+    });
+
+  }
+  
+
+  doInfinite(infiniteScroll: any) {
+    console.log('doInfinite, start is currently ' + this.start);
+    this.start += this.length;
+
+    this.loadTags().then(() => {
+      infiniteScroll.complete();
+    });
+
   }
 
   ngOnInit() {
-    this.getTags(this.activation_key, this.limit);
+    this.getTags();
   }
 
-  getTags(activation_key, limit) {
-    this.userService.getTags(activation_key, limit)
+  getTags() {
+    this.userService.getTags(this.activation_key, this.start, this.length)
       .subscribe(response => {
-        this.services = response;
+        this.services.push(response);
         // console.log(response);
       });
   }
 
   changeLimit() {
-    this.getTags(this.activation_key, this.limit);
+    this.getTags();
   }
 
   ionViewDidLoad() {

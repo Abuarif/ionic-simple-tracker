@@ -13,7 +13,7 @@ export class User {
   department: string;
   baseLocation: string;
   isActivated: any = false;
-  activation_key: any;
+  activation_key: string;
   isCheckedIn: any = false;
   targerServer: string = 'https://mtas.prasarana.com.my';
   tags: any;

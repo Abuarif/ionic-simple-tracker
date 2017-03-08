@@ -10,7 +10,7 @@ export class Staff {
   department: string;
   baseLocation: string;
   isActivated: any = false;
-  activation_key: number;
+  activation_key: string;
   isCheckedIn: any = false;
   password: any;
 
