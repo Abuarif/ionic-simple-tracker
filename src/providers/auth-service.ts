@@ -57,54 +57,54 @@ export class AuthService {
     });
   }
   
-  public login(credentials) {
-    console.log(credentials);
-    if (credentials.email === null || credentials.password === null) {
-      return Observable.throw("Please insert credentials");
-    } else {
-      return Observable.create(observer => {
-        // At this point make a request to your backend to make a real check!
-        // let access = (credentials.password === "pass" && credentials.email === "email");
-        let access = this.getAccess(credentials);
-        // this.currentUser = new Staff('Suhaimi Maidin', 'suhaimi.maidin@prasarana.com.my');
-        observer.next(access);
-        observer.complete();
-      });
-    }
-  }
+  // public login(credentials) {
+  //   console.log(credentials);
+  //   if (credentials.email === null || credentials.password === null) {
+  //     return Observable.throw("Please insert credentials");
+  //   } else {
+  //     return Observable.create(observer => {
+  //       // At this point make a request to your backend to make a real check!
+  //       // let access = (credentials.password === "pass" && credentials.email === "email");
+  //       let access = this.getAccess(credentials);
+  //       // this.currentUser = new Staff('Suhaimi Maidin', 'suhaimi.maidin@prasarana.com.my');
+  //       observer.next(access);
+  //       observer.complete();
+  //     });
+  //   }
+  // }
 
-  getAccess(credentials) {
-    console.log(credentials);
-    // this.http.get(this.authServer + 
-    //   '?username=' + credentials.email.split('@')[0]
-    //    + '&password=' + credentials.password, this.headers )
-    //     .subscribe(res => {
-    //         console.log(res); 
-    //     });
-    //     return 1;
+  // getAccess(credentials) {
+  //   console.log(credentials);
+  //   // this.http.get(this.authServer + 
+  //   //   '?username=' + credentials.email.split('@')[0]
+  //   //    + '&password=' + credentials.password, this.headers )
+  //   //     .subscribe(res => {
+  //   //         console.log(res); 
+  //   //     });
+  //   //     return 1;
 
-    this.http.get(this.authServer 
-        + '?username=' + credentials.email.split('@')[0] 
-        + '&password=' +  credentials.password)
-      .map(res => res.json())
-      .subscribe(data => {
-      this.data = data.data.children;
-      console.log('horay: '+ data);
-      console.log('horay 2: '+ this.data);
-    }, error => {
-              console.log("Oooops!");
-          });
+  //   this.http.get(this.authServer 
+  //       + '?username=' + credentials.email.split('@')[0] 
+  //       + '&password=' +  credentials.password)
+  //     .map(res => res.json())
+  //     .subscribe(data => {
+  //     this.data = data.data.children;
+  //     console.log('horay: '+ data);
+  //     console.log('horay 2: '+ this.data);
+  //   }, error => {
+  //             console.log("Oooops!");
+  //         });
 
-      // let body = JSON.stringify(credentials);
-      //     console.log('Body message: ' + body);
-      //     this.http.post(this.authServer, body)
-      //     .subscribe(data => {
-      //     this.data.response = data;
-      //     }, error => {
-      //         console.log("Oooops!");
-      //     });
+  //     // let body = JSON.stringify(credentials);
+  //     //     console.log('Body message: ' + body);
+  //     //     this.http.post(this.authServer, body)
+  //     //     .subscribe(data => {
+  //     //     this.data.response = data;
+  //     //     }, error => {
+  //     //         console.log("Oooops!");
+  //     //     });
     
-  }
+  // }
   
 
   public register(credentials) {
